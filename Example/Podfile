@@ -1,0 +1,13 @@
+use_frameworks!
+
+platform :ios, '10.0'
+
+target 'MDGA_Example' do
+  pod 'MDGA', :path => '../'
+
+  target 'MDGA_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
