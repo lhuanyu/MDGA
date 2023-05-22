@@ -1,0 +1,36 @@
+PODS:
+  - DJI-SDK-iOS (4.16.2)
+  - DJI-UXSDK-iOS (4.16.2)
+  - DJIWidget (1.6.8)
+  - MDGA (1.0.0):
+    - DJI-SDK-iOS (~> 4.16.2)
+  - SnapKit (5.6.0)
+
+DEPENDENCIES:
+  - DJI-SDK-iOS (~> 4.16.2)
+  - DJI-UXSDK-iOS (~> 4.16.2)
+  - DJIWidget
+  - MDGA (from `../`)
+  - SnapKit
+
+SPEC REPOS:
+  trunk:
+    - DJI-SDK-iOS
+    - DJI-UXSDK-iOS
+    - DJIWidget
+    - SnapKit
+
+EXTERNAL SOURCES:
+  MDGA:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  DJI-SDK-iOS: 44308a021c3b95a912be52c4e7a8e0a27e5434f5
+  DJI-UXSDK-iOS: 8a9db4bda9fcc38ccf9861fb7d7ba30d44c7791c
+  DJIWidget: 9d92abb52888cd6296717c93feacd8a703bf678a
+  MDGA: 5f4f51ad1fa5f552ce858c66aff5ab978c096fff
+  SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
+
+PODFILE CHECKSUM: e3dfcab4d0b108a160bc35a0fe16ec5eec26968a
+
+COCOAPODS: 1.12.1

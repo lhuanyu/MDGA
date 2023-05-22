@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DJISDK
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        DJISDKManager.registerApp(with: self)
+        DJISDKManager.closeConnection(whenEnteringBackground: false)
         return true
     }
 
@@ -41,6 +44,44 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-
 }
 
+
+extension AppDelegate: DJISDKManagerDelegate {
+    
+    func appRegisteredWithError(_ error: Error?) {
+        if let error = error {
+            print("DJISDK register failed: \(error.localizedDescription)")
+            DispatchQueue.main.async {
+                errorAlert(error.localizedDescription)
+            }
+        } else {
+            print("DJISDK register success")
+            DJISDKManager.startConnectionToProduct()
+        }
+    }
+    
+    func didUpdateDatabaseDownloadProgress(_ progress: Progress) {
+        print("DJISDK sync db progress: \(Int(progress.fractionCompleted * 100))%")
+    }
+    
+    func productConnected(_ product: DJIBaseProduct?) {
+        if let product = product as? DJIAircraft {
+            DispatchQueue.main.asyncAfter(deadline: .now()+1.0) {
+                MissionControl.shared.autopilot.setup()
+            }
+        }
+    }
+    
+    func productChanged(_ product: DJIBaseProduct?) {
+        if let product = product as? DJIAircraft {
+            DispatchQueue.main.asyncAfter(deadline: .now()+1.0) {
+                MissionControl.shared.autopilot.setup()
+            }
+        }
+    }
+    
+    func productDisconnected() {
+        
+    }
+}
