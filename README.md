@@ -45,7 +45,7 @@ MDGA is available through [CocoaPods](https://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'MDGA'
+pod 'MDGA', '~> 1.0.0'
 ```
 
 ## Author
