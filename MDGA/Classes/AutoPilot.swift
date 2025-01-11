@@ -634,7 +634,7 @@ open class AutoPilot: NSObject, WaypointMissionOperator {
                 isTurning = false
             }
         case .ready:
-            if starActions() {
+            if startActions() {
                 actionState = .executing
             } else {
                 actionState = .finished
@@ -1511,7 +1511,7 @@ open class AutoPilot: NSObject, WaypointMissionOperator {
         print("actionIndex: \(actionIndex)")
         if actionIndex < waypoint.waypointActions.count {
             if let action = waypoint.waypointActions[actionIndex] as? DJIWaypointAction {
-                excuteAction(action)
+                executeAction(action)
             }
         } else {
             actionState = .finished
@@ -1519,10 +1519,10 @@ open class AutoPilot: NSObject, WaypointMissionOperator {
         }
     }
     
-    private func starActions() -> Bool {
+    private func startActions() -> Bool {
         if let action = waypoint?.waypointActions.first as? DJIWaypointAction {
             actionIndex = 0
-            excuteAction(action)
+            executeAction(action)
             return true
         }
         return false
@@ -1539,7 +1539,7 @@ open class AutoPilot: NSObject, WaypointMissionOperator {
         return isAircraftReachedHeading(actionHeading)
     }
     
-    private func excuteAction(_ action: DJIWaypointAction) {
+    private func executeAction(_ action: DJIWaypointAction) {
         guard let waypoint = waypoint else {
             return
         }
@@ -1585,7 +1585,7 @@ open class AutoPilot: NSObject, WaypointMissionOperator {
                             print(error)
                         } else {
                             DispatchQueue.main.async {
-                                self.excuteAction(action)
+                                self.executeAction(action)
                             }
                         }
                     }
@@ -1604,7 +1604,7 @@ open class AutoPilot: NSObject, WaypointMissionOperator {
                             print(error)
                         } else {
                             DispatchQueue.main.async {
-                                self.excuteAction(action)
+                                self.executeAction(action)
                             }
                         }
                     })
@@ -1627,7 +1627,7 @@ open class AutoPilot: NSObject, WaypointMissionOperator {
                             self.nextAction(at: waypoint)
                         } else {
                             DispatchQueue.main.async {
-                                self.excuteAction(action)
+                                self.executeAction(action)
                             }
                         }
                     }
@@ -1644,7 +1644,7 @@ open class AutoPilot: NSObject, WaypointMissionOperator {
                             self.nextAction(at: waypoint)
                         } else {
                             DispatchQueue.main.async {
-                                self.excuteAction(action)
+                                self.executeAction(action)
                             }
                         }
                     })
